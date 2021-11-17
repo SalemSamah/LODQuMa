@@ -14,10 +14,10 @@ const { BAD_REQUEST, CREATED, OK } = StatusCodes;
  * @param res
  * @returns
  */
-export async function getAllUsers(req: Request, res: Response) {
+export const getAllUsers = async (req: Request, res: Response) => {
   const users = await userDao.getAll();
   return res.status(OK).json({ users });
-}
+};
 
 /**
  * Add one user.
