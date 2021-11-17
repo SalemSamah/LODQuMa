@@ -1,5 +1,6 @@
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import path from 'path';
 import helmet from 'helmet';
 
@@ -50,7 +51,7 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 /************************************************************************************
  *                              Serve front-end content
  ***********************************************************************************/
-
+/*
 const viewsDir = path.join(__dirname, 'views');
 app.set('views', viewsDir);
 const staticDir = path.join(__dirname, 'public');
@@ -58,6 +59,6 @@ app.use(express.static(staticDir));
 app.get('*', (req: Request, res: Response) => {
     res.sendFile('index.html', {root: viewsDir});
 });
-
+*/
 // Export express instance
 export default app;
