@@ -1,0 +1,13 @@
+
+@host = localhost
+@port= 3000
+###
+
+## Get datasets from sparql endpoint
+GET http://{{host}}:{{port}}/api/data
+
+###
+
+
+## GET generate SPARQL query from JSON
+GET http://{{host}}:{{port}}/api/data/query
