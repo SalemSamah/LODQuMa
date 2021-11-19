@@ -1,8 +1,10 @@
 import { Router } from "express";
-import { getDataSetsAsCsv } from "../controllers/DataSets";
+import { generateQuery, getDataSetsAsCsv } from "../controllers/DataSets";
 
 // DataSets-route
 const dataSetsRouter = Router();
 dataSetsRouter.get("/", getDataSetsAsCsv);
+
+dataSetsRouter.get("/query", generateQuery);
 
 export default dataSetsRouter;
