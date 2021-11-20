@@ -1,37 +1,51 @@
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import { IQueryResultBindings } from "@comunica/actor-init-sparql";
+import { replaceURIbyPrefixe } from "@shared/functions";
 import { Request, Response } from "express";
 import StatusCodes from "http-status-codes";
+import mongoose from "mongoose";
+import { RDFTerm } from "src/interfaces/RDF";
+import { RDFStoreSchema } from "src/models/RDFStore";
 import { execQuey, generateSparql } from "src/services/sparqlQuery";
-const { OK } = StatusCodes;
+
+const { OK, CREATED, INTERNAL_SERVER_ERROR } = StatusCodes;
 
 /**
- * Get datasets from sparql endpoint and store results as CSV files
+ * Get datasets from sparql endpoint and store results as in GCP, mongod server
  *
  * @param req
  * @param res
  * @returns
  */
 const getDataSetsAsCsv = async (req: Request, res: Response) => {
-  const result = (await execQuey()) as IQueryResultBindings;
+  const { domain } = req.body;
+  const RDFStore = mongoose.model(domain, RDFStoreSchema);
+  const result = (await execQuey(domain, undefined)) as IQueryResultBindings;
   result.bindingsStream.on("data", (binding) => {
-    //console.log(binding.get("?s").value);
-    //console.log(binding.get("?s").termType);
-    //console.log(binding.get("?p").value);
-    //console.log(binding.get("?o").value);
-    /*console.log(
-      `${binding.get("?subject").value as string} --- ${
-        binding.get("?predicate").value as string
-      } --- ${binding.get("?object").value as string}`
-    );*/
+    const subject: RDFTerm = binding.get("?subject");
+    const predicate: RDFTerm = binding.get("?predicate");
+    const object: RDFTerm = binding.get("?object");
+
+    RDFStore.create({
+      subject: replaceURIbyPrefixe(subject),
+      predicate: replaceURIbyPrefixe(predicate),
+      object: replaceURIbyPrefixe(object),
+    });
   });
 
-  return res.status(OK).json({ data: "result" });
+  result.bindingsStream.on("end", () => {
+    return res.status(CREATED).json({ data: "dataset created successfully" });
+  });
+
+  result.bindingsStream.on("error", (error) => {
+    return res.status(INTERNAL_SERVER_ERROR).json({ error });
+  });
 };
 
 const generateQuery = (req: Request, res: Response) => {
-  const query = generateSparql();
+  const { domain } = req.body;
+  const query = generateSparql(domain, undefined);
   return res.status(OK).json({ data: query });
 };
 
