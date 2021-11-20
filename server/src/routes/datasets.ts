@@ -3,8 +3,8 @@ import { generateQuery, getDataSetsAsCsv } from "../controllers/DataSets";
 
 // DataSets-route
 const dataSetsRouter = Router();
-dataSetsRouter.get("/", getDataSetsAsCsv);
+dataSetsRouter.post("/", getDataSetsAsCsv);
 
-dataSetsRouter.get("/query", generateQuery);
+dataSetsRouter.post("/query", generateQuery);
 
 export default dataSetsRouter;
