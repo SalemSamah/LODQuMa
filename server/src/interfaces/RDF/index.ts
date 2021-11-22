@@ -11,3 +11,8 @@ export interface Literal {
 }
 
 export type RDFTerm = NamedNode | Literal;
+
+export interface QueryPage {
+  offset: number;
+  limit: number;
+}
