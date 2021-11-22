@@ -5,6 +5,9 @@ declare module "express" {
     body: {
       user: IUser;
       domain: string;
+      rows: number;
     };
   }
 }
+
+
