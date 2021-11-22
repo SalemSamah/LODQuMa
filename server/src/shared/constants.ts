@@ -1,9 +1,12 @@
 // Put shared constants here
 
-import { Expression, IriTerm, Term, Variable, VariableTerm } from "sparqljs";
+import { Expression, IriTerm, Term, VariableTerm } from "sparqljs";
 
 export const paramMissingError =
   "One or more of the required parameters was missing.";
+
+export const MAX_ROWS = 1000;
+
 //IriTerm | BlankTerm | VariableTerm | QuadTerm;
 const subject: VariableTerm = {
   termType: "Variable",
@@ -158,8 +161,8 @@ const wikiPageExternalLink: Expression = {
   equals: () => false,
 };
 
-const containerQueryLimit = 10000;
-const innerQueryLimit = 60000;
+const containerQueryLimit = 1000;
+const innerQueryLimit = 2000000;
 
 export {
   containerQueryLimit,
