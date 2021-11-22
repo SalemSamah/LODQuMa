@@ -1,10 +1,11 @@
 import { newEngine } from "@comunica/actor-init-sparql";
 import {
-  containerQueryLimit,
+  containerQueryLimit as CONTAINER_QUERY_LIMIT,
   dbo,
   dbp,
   foaf,
   innerQueryLimit,
+  MAX_ROWS,
   object,
   organisationDomain,
   personDomain,
@@ -25,16 +26,31 @@ import {
   Variable,
 } from "sparqljs";
 import { LOCALNAMESPACES } from "src/config/SparqlQuery";
+import { QueryPage } from "src/interfaces/RDF";
 
 const myEngine = newEngine();
 const generator = SparqlGenerator.Generator;
 
+export const getIterations = (ROWS: number): QueryPage[] => {
+  const iterations: QueryPage[] = [];
+
+  if (ROWS < MAX_ROWS) {
+    iterations.push({ offset: 0, limit: ROWS });
+  } else {
+    for (let i = 0; i < ROWS; i = i + MAX_ROWS) {
+      const limit = i + MAX_ROWS > ROWS ? ROWS % MAX_ROWS : MAX_ROWS;
+      iterations.push({ offset: i, limit: limit });
+    }
+  }
+  return iterations;
+};
 const execQuey = async (
   domain: string,
-  containerQueryOffset: number | undefined
+  containerQueryOffset: number | undefined,
+  containerQueryLimit: number | undefined
 ) => {
   const result = await myEngine.query(
-    generateSparql(domain, containerQueryOffset),
+    generateSparql(domain, containerQueryOffset, containerQueryLimit),
     {
       sources: ["https://dbpedia.org/sparql"],
     }
@@ -44,9 +60,14 @@ const execQuey = async (
 
 const generateSparql = (
   domain: string,
-  containerQueryOffset: number | undefined
+  containerQueryOffset: number | undefined,
+  containerQueryLimit: number | undefined
 ) => {
-  const query: SparqlQuery = queryBuilder(domain, containerQueryOffset);
+  const query: SparqlQuery = queryBuilder(
+    domain,
+    containerQueryOffset,
+    containerQueryLimit
+  );
   const generatedQuery = new generator().stringify(query);
 
   return generatedQuery;
@@ -54,7 +75,8 @@ const generateSparql = (
 
 const queryBuilder = (
   domain: string,
-  containerQueryOffset: number | undefined
+  containerQueryOffset: number | undefined,
+  containerQueryLimit: number | undefined
 ): SparqlQuery => {
   let domainFilter: IriTerm[] = [];
   switch (domain) {
@@ -296,7 +318,7 @@ const queryBuilder = (
         ],
       },
     ],
-    limit: containerQueryLimit,
+    limit: containerQueryLimit || CONTAINER_QUERY_LIMIT,
     offset: containerQueryOffset,
     type: "query",
     prefixes: LOCALNAMESPACES,
