@@ -3,15 +3,35 @@
 @port= 3000
 ###
 
-## POST datasets from sparql endpoint
+## POST datasets from sparql endpoint 
+## organisation / 2710000
 POST http://{{host}}:{{port}}/api/data
 content-type: application/json
 
 {
-    "domain": "work"
+    "domain": "organisation", 
+    "rows": 2710000
 }
 
 ###
+## work / 2950000
+POST http://{{host}}:{{port}}/api/data
+content-type: application/json
+
+{
+    "domain": "work", 
+    "rows": 2950000
+}
+
+###
+## person / 31150000
+POST http://{{host}}:{{port}}/api/data
+content-type: application/json
+
+{
+    "domain": "person", 
+    "rows": 31150000
+}
 
 
 ## POST generate SPARQL query from JSON
