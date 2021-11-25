@@ -1,9 +1,9 @@
 
 @host = localhost
 @port= 3000
-###
 
-## POST datasets from sparql endpoint 
+
+### POST datasets from sparql endpoint 
 ## organisation / 2710000
 POST http://{{host}}:{{port}}/api/data
 content-type: application/json
@@ -13,8 +13,7 @@ content-type: application/json
     "rows": 2710000
 }
 
-###
-## work / 2950000
+### work / 2950000
 POST http://{{host}}:{{port}}/api/data
 content-type: application/json
 
@@ -23,21 +22,77 @@ content-type: application/json
     "rows": 2950000
 }
 
-###
-## person / 31150000
+### person / 31150000
 POST http://{{host}}:{{port}}/api/data
 content-type: application/json
 
 {
     "domain": "person", 
-    "rows": 31150000
+    "rows": 1000
 }
 
-
-## POST generate SPARQL query from JSON
+### POST generate SPARQL query from JSON
 POST http://{{host}}:{{port}}/api/data/query
 content-type: application/json
 
 {
     "domain": "work"
 }
+
+### POST generate diff stats for a given ?domain 
+POST http://{{host}}:{{port}}/api/dpp/stats
+content-type: application/json
+
+{
+    "domain": "work"
+}
+
+
+### POST generate synonym sets for >> diff stats for a given ?domain 
+POST http://{{host}}:{{port}}/api/dpp/distinct
+content-type: application/json
+
+{
+    "domain": "work"
+}
+
+
+### POST generate diff stats for a given ?domain 
+POST http://{{host}}:{{port}}/api/dpp/stats
+content-type: application/json
+
+{
+    "domain": "organisation"
+}
+
+
+### POST generate synonym sets for >> diff stats for a given ?domain 
+POST http://{{host}}:{{port}}/api/dpp/distinct
+content-type: application/json
+
+{
+    "domain": "organisation"
+}
+
+### POST generate diff stats for a given ?domain 
+POST http://{{host}}:{{port}}/api/dpp/stats
+content-type: application/json
+
+{
+    "domain": "person"
+}
+
+
+### POST generate synonym sets for >> diff stats for a given ?domain 
+POST http://{{host}}:{{port}}/api/dpp/distinct
+content-type: application/json
+
+{
+    "domain": "person"
+}
+
+### GET SYNS FROM GCP SERVER
+GET http://34.142.115.49:105/synonyms/help
+
+### GET SUGS FROM GCP SERVER
+GET http://34.142.115.49:105/suggest/help
