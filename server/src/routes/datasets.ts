@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { generateQuery, getDataSetsAsCsv } from "../controllers/DataSets";
 
-// DataSets-route
+// Datasets-route
 const dataSetsRouter = Router();
 dataSetsRouter.post("/", getDataSetsAsCsv);
 
