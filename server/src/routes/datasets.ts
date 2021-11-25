@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { generateQuery, getDataSetsAsCsv } from "../controllers/DataSets";
+import { generateQuery, getDataSetsAsCsv } from "../controllers/Datasets";
 
 // Datasets-route
 const dataSetsRouter = Router();
