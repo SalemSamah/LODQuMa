@@ -7,6 +7,7 @@ import WordNet from "node-wordnet";
 import { DistinctPredicate } from "src/models/DistinctPredicate";
 import { RDFStoreSchema } from "src/models/RDFStore";
 import Typo from "typo-js";
+import natural from "natural";
 const wordnet = new WordNet();
 const dictionary = new Typo("en_US");
 const { OK } = StatusCodes;
@@ -97,9 +98,12 @@ const generateSynonymSets = (req: Request, res: Response) => {
             : [];
 
           const synonyms = await generateSynonyms(readableValue);
+
           const dic = [
             ...new Set([...array_of_suggestions, ...synonyms, readableValue]),
-          ];
+          ].filter(
+            (syn) => natural.DamerauLevenshteinDistance(readableValue, syn) <= 2
+          );
           bulk.find({ _id: rdfTerm._id }).update({ $set: { dic: dic } });
         })
       );
