@@ -3,6 +3,10 @@
 @port= 3000
 
 
+##########################################
+## DATASETS                             ##
+##########################################
+
 ### POST datasets from sparql endpoint 
 ## organisation / 2710000
 POST http://{{host}}:{{port}}/api/data
@@ -39,6 +43,11 @@ content-type: application/json
     "domain": "work"
 }
 
+
+##########################################
+## STATS                                ##
+##########################################
+
 ### POST generate diff stats for a given ?domain 
 POST http://{{host}}:{{port}}/api/dpp/stats
 content-type: application/json
@@ -90,9 +99,63 @@ content-type: application/json
 {
     "domain": "person"
 }
+
+##########################################
+## pyLODQuMA                            ##
+##########################################
+
 
 ### GET SYNS FROM GCP SERVER
 GET http://34.142.115.49:105/synonyms/help
 
 ### GET SUGS FROM GCP SERVER
 GET http://34.142.115.49:105/suggest/help
+
+
+##########################################
+## SYNONYMS                             ##
+##########################################
+
+
+### POST Create Synonyms dictionary for a give distinc predicates collection
+POST http://{{host}}:{{port}}/api/synonyms/dictionary
+content-type: application/json
+
+{
+    "domain": "work"
+}
+###
+POST http://{{host}}:{{port}}/api/synonyms/dictionary
+content-type: application/json
+
+{
+    "domain": "person"
+}
+
+### POST save the distinct predicate values into new document
+POST http://{{host}}:{{port}}/api/synonyms/saveDistinct
+content-type: application/json
+
+{
+    "domain": "person"
+}
+
+### POST clean dictionary for a given domain and remove duplicated/unused synonyls sets
+POST http://{{host}}:{{port}}/api/synonyms/clean
+content-type: application/json
+
+{
+    "domain": "person"
+}
+
+
+### POST Create QVCs (Quality Verification Cases), for a collection
+POST http://{{host}}:{{port}}/api/synonyms/qvc
+content-type: application/json
+
+{
+    "domain": "person"
+}
+
+
+
