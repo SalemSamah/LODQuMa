@@ -148,6 +148,14 @@ content-type: application/json
     "domain": "person"
 }
 
+### POST generate rare predicates for a given domain
+POST http://{{host}}:{{port}}/api/synonyms/rare
+content-type: application/json
+
+{
+    "domain": "person"
+}
+
 
 ### POST Create QVCs (Quality Verification Cases), for a collection
 POST http://{{host}}:{{port}}/api/synonyms/qvc
