@@ -164,6 +164,85 @@ const wikiPageExternalLink: Expression = {
 const containerQueryLimit = 1000;
 const innerQueryLimit = 2000000;
 
+const QVC4 = "QVC4";
+const QVC1 = "QVC1";
+const QVC2 = "QVC2";
+const QVC3 = "QVC3";
+
+// CASE_03 predicates
+const CASE_03_PRD = [
+  "dbp:id",
+  "dbo:bnfId",
+  "dbo:capital",
+  "dbp:countryCode",
+  "dbo:espnId",
+  "dbo:flag",
+  "dbo:isniId",
+  "dbo:lccnId",
+  "dbo:mbaId",
+  "dbo:ndlId",
+  "dbo:nlaId",
+  "dbo:orcidId",
+  "dbo:selibrId",
+  "dbo:signature",
+  "dbo:sudocId",
+  "dbo:ulanId",
+  "dbo:viafId",
+  "dbo:wikiPageID",
+  "dbo:wikiPageRevisionID",
+];
+
+//CASE_02 predicates
+const CASE_02_PRD = [
+  "dbo:releaseDate",
+  "dbo:buildingStartDate",
+  "dbp:voiceType",
+  "dbo:hipSize",
+  "dbo:foundingDate",
+  "dbp:bloodGroup",
+  "dbo:openingYear",
+  "dbp:hairColor",
+  "dbp:bloodType",
+  "dbo:shoeSize",
+  "dbo:sex",
+  "foaf:gender", // Append
+  "dbp:gender", // Append
+  "dbo:gender", // Append
+  "dbo:dateOfBurial",
+  "dbo:dissolutionYear",
+  "dbo:birthDate",
+  "dbp:eyeColor",
+  "dbo:hairColor",
+  "dbo:eyeColor",
+  "dbo:deathDate",
+  "dbo:yearOfConstruction",
+  "dbo:buildingEndDate",
+  "dbo:deathYear",
+  "dbo:dissolutionDate",
+  "dbo:foundingYear",
+  "dbo:shoeNumber",
+  //CASE_03 APPEND
+  "dbo:bnfId",
+  "dbo:capital",
+  "dbp:countryCode",
+  "dbo:espnId",
+  "dbo:flag",
+  "dbo:isniId",
+  "dbo:lccnId",
+  "dbo:mbaId",
+  "dbo:ndlId",
+  "dbo:nlaId",
+  "dbo:orcidId",
+  "dbo:selibrId",
+  "dbo:signature",
+  "dbo:sudocId",
+  "dbo:ulanId",
+  "dbo:viafId",
+  "dbo:wikiPageID",
+  "dbo:wikiPageRevisionID",
+  "dbp:id",
+];
+
 export {
   containerQueryLimit,
   innerQueryLimit,
@@ -188,4 +267,10 @@ export {
   wikiPageRevisionID,
   wikiPageID,
   wikiPageExternalLink,
+  CASE_03_PRD,
+  CASE_02_PRD,
+  QVC4,
+  QVC1,
+  QVC2,
+  QVC3,
 };
