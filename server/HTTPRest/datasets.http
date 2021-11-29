@@ -165,5 +165,16 @@ content-type: application/json
     "domain": "person"
 }
 
+### POST Save QVCs/ for each {predicate} in a  collection
+POST http://{{host}}:{{port}}/api/synonyms/saveQVC
+content-type: application/json
+
+{
+    "domain": "person"
+}
+
+
+
+
 
 
