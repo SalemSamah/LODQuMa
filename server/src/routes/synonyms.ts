@@ -6,6 +6,7 @@ import {
   cleanDictionary,
   saveRarePredicates,
   saveQVCs,
+  showQVCs,
 } from "../controllers/Synonyms";
 
 // Synonyms-route
@@ -16,6 +17,7 @@ synonymsRouter.post("/saveDistinct", saveDistinctPredicates);
 synonymsRouter.post("/clean", cleanDictionary);
 synonymsRouter.post("/rare", saveRarePredicates);
 synonymsRouter.post("/saveQVC", saveQVCs);
+synonymsRouter.post("/showQVC", showQVCs);
 synonymsRouter.post("/qvc", generateQVCs);
 
 export default synonymsRouter;
