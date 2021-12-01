@@ -1,6 +1,7 @@
 // Put shared constants here
 
 import { Expression, IriTerm, Term, VariableTerm } from "sparqljs";
+import { LOCALNAMESPACES } from "src/config/SparqlQuery";
 
 export const paramMissingError =
   "One or more of the required parameters was missing.";
@@ -243,7 +244,22 @@ const CASE_02_PRD = [
   "dbp:id",
 ];
 
+const replaceSpecialCaracter = (predicate: string) => {
+  if (predicate.includes("dbr")) {
+    return `<${predicate.replace("dbr:", LOCALNAMESPACES["dbr"])}>`;
+  }
+  if (predicate.includes("dbp")) {
+    return `<${predicate.replace("dbp:", LOCALNAMESPACES["dbp"])}>`;
+  }
+  if (predicate.includes("dbo")) {
+    return `<${predicate.replace("dbo:", LOCALNAMESPACES["dbo"])}>`;
+  }
+  if (predicate.includes("foaf")) {
+    return `<${predicate.replace("foaf:", LOCALNAMESPACES["foaf"])}>`;
+  }
+};
 export {
+  replaceSpecialCaracter,
   containerQueryLimit,
   innerQueryLimit,
   subject,
