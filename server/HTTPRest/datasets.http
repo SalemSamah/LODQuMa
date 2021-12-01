@@ -176,5 +176,16 @@ content-type: application/json
 
 
 
+### POST Show QVCs/ for each {predicate} in a  collection
+POST http://{{host}}:{{port}}/api/synonyms/showQVC
+content-type: application/json
+
+{
+    "domain": "person"
+}
+
+
+
+
 
 
